@@ -32,4 +32,4 @@ $PYTHON3 "$PLCC" $FILES || {
         exit 5
 }
 
-(cd ./Java ; javac *.java)
+# (cd ./Java ; javac *.java)

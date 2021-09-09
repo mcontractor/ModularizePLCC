@@ -5,4 +5,4 @@ IF NOT EXIST Java\Rep.class (
     EXIT /B 1
 )
 
-java -cp .\Java Rep %1 %2 %3 %4 %5 %6 %7 %8 %9
+java -cp EnvSource/Env.jar:./Java Rep %1 %2 %3 %4 %5 %6 %7 %8 %9

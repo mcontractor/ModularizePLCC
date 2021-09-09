@@ -10,4 +10,4 @@
     exit 2
 }
 
-java -cp ./Java Rep -t
+java -cp EnvSource/Env.jar:./Java Rep -t

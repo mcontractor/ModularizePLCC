@@ -10,4 +10,5 @@
     exit 2
 }
 
-java -cp ./Java Rep $*
+java -cp EnvSource/Env.jar:./Java Rep $*
+

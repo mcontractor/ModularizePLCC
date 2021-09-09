@@ -5,4 +5,4 @@ IF NOT EXIST Java\Scan.class (
     EXIT /B 1
 )
 
-java -cp .\Java Scan
+java -cp EnvSource/Env.jar:./Java Scan

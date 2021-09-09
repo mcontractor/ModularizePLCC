@@ -40,6 +40,6 @@ IF %ERRORLEVEL% NEQ 0 (
 	EXIT /B 5
 )
 
-javac *.java
+@REM javac *.java
 
 POPD
