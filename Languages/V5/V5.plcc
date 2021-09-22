@@ -75,7 +75,6 @@ include MulPrim-i.java
 include Operands-i.java
 include Prim-i.java
 include PrimAppExp-i.java
-# include Proc-i.java
 include ProcExp-i.java
 include Program-i.java
 include SeqExp-i.java

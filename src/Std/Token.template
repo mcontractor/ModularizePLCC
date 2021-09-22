@@ -1,7 +1,7 @@
 import java.util.*;
 
 // Token class without patterns
-public class Token {
+public class Token implements IToken {
 
     public enum Val {
 %%Vals%%
