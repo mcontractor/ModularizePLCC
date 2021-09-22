@@ -131,9 +131,9 @@ public class Scan implements IScan {
                                     "put not implemented");
     }
 
-    // See if the expected token match is the same as the match
-    // of the current token
-    public Token match(Token.Match match, Trace trace) {
+    // match function changed to take in a string rather than a match object
+    public Token match(String pat, Trace trace) {
+        Token.Match match = Token.Match.valueOf(pat);
         Token t = cur();
         Token.Match mcur = t.match; // the token we got
         if (match == mcur) { // compare the match expected with the token we got

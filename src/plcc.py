@@ -25,6 +25,7 @@ import io
 import shutil
 import pipes
 import tempfile
+import json
 
 argv = sys.argv[1:] # skip over the command-line argument
 
@@ -746,7 +747,7 @@ def makeParse(cls, rhs):
         (tnt, field) = defangRHS(item)
         if tnt == None:
             # item must be a bare token -- just match it
-            parseList.append('scn$.match(Token.Match.{}, trace$);'.format(item))
+            parseList.append('scn$.match({}, trace$);'.format(json.dumps(item)))
             continue
         if field in fieldSet:
             deathLNO('duplicate field name {} in rule RHS {}'.format(field, rhsString))
@@ -755,7 +756,7 @@ def makeParse(cls, rhs):
         if isTerm(tnt):
             fieldType = 'Token'
             parseList.append(
-                'Token {} = scn$.match(Token.Match.{}, trace$);'.format(field, tnt))
+                'Token {} = scn$.match({}, trace$);'.format(field, json.dumps(tnt)))
         else:
             fieldType = nt2cls(tnt)
             parseList.append(
@@ -781,7 +782,7 @@ def makeArbnoParse(cls, rhs, sep):
     for item in rhs:
         (tnt, field) = defangRHS(item)
         if tnt == None:
-            loopList.append('scn$.match(Token.Match.{}, trace$);'.format(item))
+            loopList.append('scn$.match({}, trace$);'.format(json.dumps(item)))
             continue
         # field is either derived from tnt or is an annotated field name
         field += 'List'
@@ -789,7 +790,7 @@ def makeArbnoParse(cls, rhs, sep):
             # a token
             baseType = 'Token'
             loopList.append(
-                '{}.add(scn$.match(Token.Match.{}, trace$));'.format(field, tnt))
+                '{}.add(scn$.match({}, trace$));'.format(field, json.dumps(tnt)))
         elif isNonterm(tnt):
             baseType = nt2cls(tnt)
             loopList.append('{}.add({}.parse(scn$, trace$));'.format(field, baseType))
@@ -843,7 +844,7 @@ def makeArbnoParse(cls, rhs, sep):
                 match$ = t$.match;
                 if (match$ != Token.Match.{sep})
                     break; // not a separator, so we're done
-                scn$.match(match$, trace$);
+                scn$.match(match$.name(), trace$);
             }}
         }} // end of switch
         {returnItem}

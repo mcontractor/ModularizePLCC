@@ -4,6 +4,6 @@
 
 public interface IMatch {
 
-    public Token match(Token.Match mat, Trace t);
+    public Token match(String mat, Trace t);
 
 }
