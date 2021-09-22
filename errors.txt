@@ -1,0 +1,4 @@
+AppExp.java:43: error: incompatible types: List<Ref> cannot be converted to List<Val>
+            return pv.apply( args, env );
+
+errors for SET env when used in REF
