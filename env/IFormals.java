@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface IFormals {
     public abstract String toString();
-    public abstract List<IToken> getVarList();
+    public abstract List<? extends IToken> getVarList();
 }
