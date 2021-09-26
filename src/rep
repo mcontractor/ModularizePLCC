@@ -10,5 +10,12 @@
     exit 2
 }
 
-java -cp EnvSource/Env.jar:./Java Rep $*
+if [ "$1" = "-j" ] 
+then
+    jar=$2
+    shift
+    shift
+fi
+
+java -cp ${jar}:./Java Rep $*
 

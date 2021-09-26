@@ -10,6 +10,13 @@ then
         shift
 fi
 
+if [ "$1" = "-j" ] ;
+then
+    jar=$2
+    shift
+    shift
+fi
+
 if [ $# -gt 0 ];
 then
         FILES="$@"
@@ -34,4 +41,9 @@ $PYTHON3 "$PLCC" $FILES || {
         exit 5
 }
 
-# (cd ./Java ; javac *.java)
+if [ -n "$jar" ]
+then
+       (cd ./Java ; javac -cp ${jar} *.java)
+else
+        (cd ./Java ; javac *.java)
+fi
