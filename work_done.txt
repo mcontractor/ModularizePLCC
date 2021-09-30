@@ -1,0 +1,14 @@
+- Modularized Env for
+    - V5
+    - V6
+    - SET
+    - REF
+    - OBJ
+- added arguments for jars using "-j" to
+    - plccmk
+    - rep
+    - rep -t
+    - parse
+    - scan
+
+- scan changed in plcc to take in a string as an input rather than a match object
