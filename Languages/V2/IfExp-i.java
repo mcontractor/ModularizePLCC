@@ -1,3 +1,10 @@
+# if-else-then file
+IF 'if'
+THEN 'then'
+ELSE 'else'
+%
+<exp>:IfExp      ::= IF <exp>test THEN <exp>thenPart ELSE <exp>elsePart
+%
 
 IfExp
 %%%
@@ -8,4 +15,3 @@ IfExp
         return test.eval( env ).isTrue() ? thenPart.eval( env ) : elsePart.eval( env );
     }
 %%%
-
