@@ -1,0 +1,18 @@
+Commands ans Usage for running plcc with Jars
+
+PLCCMK:
+The jar file location must be relative to the JAVA directory
+plccmk -c -j [jar file location] [grammar file name]
+
+REP:
+The jar file location must be relative to the CURRENT directory
+rep -j [jar file location]
+rep -j [jar file location] -t
+
+PARSE:
+The jar file location must be relative to the CURRENT directory
+parse -j [jar file location]
+
+SCAN:
+The jar file location must be relative to the CURRENT directory
+scan -j [jar file location]
