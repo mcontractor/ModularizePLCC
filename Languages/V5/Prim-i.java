@@ -1,8 +1,3 @@
-Prim:import 
-%%%
-import env.*;
-%%%
-
 Prim
 %%%
     /**

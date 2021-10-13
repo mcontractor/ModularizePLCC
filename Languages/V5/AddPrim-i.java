@@ -1,7 +1,3 @@
-AddPrim:import 
-%%%
-import env.*;
-%%%
 
 AddPrim
 %%%

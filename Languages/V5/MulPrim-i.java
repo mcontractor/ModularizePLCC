@@ -1,7 +1,3 @@
-MulPrim:import 
-%%%
-import env.*;
-%%%
 
 MulPrim
 %%%

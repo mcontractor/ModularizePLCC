@@ -1,7 +1,3 @@
-SubPrim:import 
-%%%
-import env.*;
-%%%
 
 SubPrim
 %%%

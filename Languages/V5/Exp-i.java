@@ -1,7 +1,3 @@
-Exp:import 
-%%%
-import env.*;
-%%%
 
 Exp:class
 %%%

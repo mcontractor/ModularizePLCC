@@ -1,7 +1,3 @@
-DivPrim:import 
-%%%
-import env.*;
-%%%
 
 DivPrim
 %%%

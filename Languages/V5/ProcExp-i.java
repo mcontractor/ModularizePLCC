@@ -1,7 +1,44 @@
-ProcExp:import 
+# procExp and AppExp and Formals
+
+PROC 'proc'
+DOT '\.'
+
+%
+<exp>:AppExp     ::= DOT <exp> LPAREN <operands> RPAREN
+<exp>:ProcExp    ::= PROC LPAREN <formals> RPAREN <exp>
+<formals>        **= <VAR> +COMMA
+%
+
+AppExp:import
 %%%
-import env.*;
+import java.util.List;
 %%%
+
+AppExp
+%%%
+    /**
+     * Compute the value of a procedure call.
+     */
+    public Val eval( Env env ) {
+        Val v = null;
+        try {
+            v = exp.eval( env ); // Fetch the proc itself.
+            ProcVal pv = (ProcVal)v;
+            List< Val > args = operands.evalOperands( env );
+            // Have the ProcVal execute its body.
+            return pv.apply( args, env );
+        }
+        catch( ClassCastException cce ) {
+            throw new RuntimeException( v.getClass() + " is not a proc." );
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "CALL [" + exp + "](" + operands + ")";
+    }
+%%%
+
 
 ProcExp
 %%%
@@ -20,4 +57,30 @@ ProcExp
         // return proc.toString();
     }
 %%%
+
+
+Formals:class
+%%%
+implements IFormals
+%%%
+
+Formals
+%%%
+    // The real work is handled directly in the Proc class.
+
+    public List<Token> getVarList() {
+        return varList;
+    }
+
+    public String toString() {
+        String formals = "(";
+        String sep = "";
+        for ( Token v : varList ) {
+            formals += sep + v;
+            sep = ",";
+        }
+        return formals + ")";
+    }
+%%%
+
 

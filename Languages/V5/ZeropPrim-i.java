@@ -1,7 +1,3 @@
-ZeropPrim:import 
-%%%
-import env.*;
-%%%
 
 ZeropPrim
 %%%

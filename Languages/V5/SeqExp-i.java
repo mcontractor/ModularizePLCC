@@ -1,7 +1,13 @@
-SeqExp:import 
-%%%
-import env.*;
-%%%
+# seqExps
+
+LBRACE '\{'
+RBRACE '\}'
+SEMI ';'
+
+%
+<exp>:SeqExp     ::= LBRACE <exp> <seqExps> RBRACE
+<seqExps>        **= SEMI <exp>
+%
 
 SeqExp
 %%%

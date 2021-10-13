@@ -1,7 +1,6 @@
 PrimAppExp:import
 %%%
 import java.util.Arrays;
-import env.*;
 %%%
 
 PrimAppExp

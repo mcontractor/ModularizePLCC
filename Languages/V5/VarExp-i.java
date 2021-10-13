@@ -1,8 +1,3 @@
-VarExp:import 
-%%%
-import env.*;
-%%%
-
 VarExp
 %%%
     @Override

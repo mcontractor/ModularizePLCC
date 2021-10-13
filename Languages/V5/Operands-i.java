@@ -1,7 +1,6 @@
 Operands:import
 %%%
 import java.util.stream.Collectors;
-import env.*;
 %%%
 
 Operands

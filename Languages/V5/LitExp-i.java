@@ -1,7 +1,3 @@
-LitExp:import 
-%%%
-import env.*;
-%%%
 
 LitExp
 %%%

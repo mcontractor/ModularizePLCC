@@ -1,7 +1,3 @@
-Program:import 
-%%%
-import env.*;
-%%%
 
 Program
 %%%

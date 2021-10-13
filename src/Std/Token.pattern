@@ -1,10 +1,9 @@
 import java.util.*;
-import java.util.regex.*;
-import env.*;
+import java.util.regex.*;import env.*;
 
 // Token class with match patterns (used with the built-in Scan class)
 public class Token implements IToken {
-
+//public class Token {
     // this is set to an error message string
     // if there are pattern compile errors
     public static String patternFail = null; //
