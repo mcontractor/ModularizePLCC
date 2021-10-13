@@ -1,3 +1,8 @@
+# LetDecls
+
+%
+<letDecls>       **= <VAR> ASSIGN <exp>
+%
 
 LetDecls:import
 %%%

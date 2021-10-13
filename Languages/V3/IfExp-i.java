@@ -1,3 +1,12 @@
+# if-then-else file
+
+ELSE 'else'
+IF 'if'
+THEN 'then'
+
+%
+<exp>:IfExp      ::= IF <exp>test THEN <exp>thenPart ELSE <exp>elsePart
+%
 
 IfExp
 %%%

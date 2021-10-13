@@ -1,3 +1,11 @@
+#Let Exp
+
+IN 'in'
+LET 'let'
+
+%
+<exp>:LetExp     ::= LET <letDecls> IN <exp>
+%
 
 LetExp
 %%%
