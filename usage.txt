@@ -1,8 +1,11 @@
-Commands ans Usage for running plcc with Jars
+Commands and Usage for running plcc with Jars
+For all usages, replace [filename] with the actual filename
 
 PLCCMK:
 The jar file location must be relative to the JAVA directory
 plccmk -c -j [jar file location] [grammar file name]
+The submodules path must be relative to the CURRENT directory
+plccmk -c --i "[file1];[file2];[file3]" [grammar file name]
 
 REP:
 The jar file location must be relative to the CURRENT directory
