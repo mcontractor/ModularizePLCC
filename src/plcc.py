@@ -54,6 +54,8 @@ cases = {}          # maps a non-abstract class to its set of case terminals
 rrule = {}          # maps a repeating rule class name to its separator string
                     # (or None)
 stubs = {}          # maps a class name to its parser stub file
+updatedGrammarFile = [] # updated grammar file based on includes for modularization
+updatedGrammarFileName = "" # updated grammar file name based on includes for modularization
 
 def debug(msg, level=1):
     # print(getFlag('debug'))
@@ -74,7 +76,13 @@ def LIBPLCC():
 def main():
     global argv
     plccInit()
+    files_to_include = []
     while argv:
+        if argv[0] == '--i':
+            files_to_include = argv[1].split(';')
+            argv = argv[2:]
+            continue
+
         if argv[0] == '--':
             # just continue with the rest of the command line
             argv = argv[1:]
@@ -99,7 +107,6 @@ def main():
             argv = argv[1:]
         else:
             break
-
     # Handle --version option.
     if 'version' in flags and flags['version']:
         from pathlib import Path
@@ -108,6 +115,12 @@ def main():
             contents = f.read()
             print("PLCC " + contents.strip())
         sys.exit(0)
+    
+    if files_to_include:
+        global updatedGrammarFileName
+        global updatedGrammarFile
+        updatedGrammarFile = updateGrammarFile(flag, files_to_include)
+        updatedGrammarFileName = flag
 
     nxt = nextLine()     # nxt is the next line generator
     lex(nxt)    # lexical analyzer generation
@@ -136,6 +149,98 @@ def plccInit():
     flags['parser'] = True        # create a parser
     flags['semantics'] = True     # create semantics routines
     flags['nowrite'] = False      # when True, produce *no* file output
+
+def updateGrammarFile(grammarFile, files_to_include):
+    openFileG = ''
+    try:
+        openFileG = open(grammarFile, "r")
+        grammarContent = openFileG.read().split('\n')
+        tokens = []
+        rules = []
+        semantics = []
+        for f in files_to_include:
+            openF = open(f, "r")
+            includeContent = openF.read().split('\n')
+            tokens += getTokens(includeContent)
+            rules += getRules(includeContent)
+            semantics += getSemantics(includeContent)
+        grammarContent = addTokensToGrammar(grammarContent, tokens)
+        grammarContent = addRulesToGrammar(grammarContent, rules)
+        grammarContent = addSemanticsToGrammar(grammarContent, semantics)
+    except:
+        death(grammarFile + ': error opening file')
+    return grammarContent
+        
+
+def getTokens(content):
+    toks = []
+    for line in content:
+        if line[0] == '#':
+            continue
+        if line.strip() == '%':
+            break
+        toks += [line.strip()]
+    return toks
+
+def addTokensToGrammar(content, tokens):
+    index = 0
+    for i, line in enumerate(content):
+        if 'LIT' in line:
+            index = i+1
+            break
+    content = content[0:index] + tokens + content[index:]
+    return content
+
+def getRules(content):
+    rules = []
+    flag = False
+    for line in content:
+        if flag:
+            if line.strip() == '%':
+                break
+            rules += [line.strip()]
+        else:
+            if line.strip() == '%':
+                flag = True
+            continue
+    return rules
+
+def addRulesToGrammar(content, rules):
+    index = 0
+    start = 0
+    for i, line in enumerate(content):
+        if line.strip() == '%':
+            if start == 1:   
+                index = i
+                break
+            else:
+                start += 1
+    content = content[0:index] + rules + content[index:]
+    return content
+
+def getSemantics(content):
+    semantics = []
+    start = 0
+    for line in content:
+        if start < 2:
+            if line.strip() == '%':
+                start += 1
+            continue
+        semantics += [line.strip()]
+    return semantics
+            
+def addSemanticsToGrammar(content, semantics):
+    index = 0
+    start = 0
+    for i, line in enumerate(content):
+        if line.strip() == '%':
+            if start == 1:   
+                index = i+1
+                break
+            else:
+                start += 1
+    content = content[0:index] + semantics + content[index:]
+    return content        
 
 def lex(nxt):
     # print('=== lexical specification')
@@ -178,6 +283,7 @@ def lex(nxt):
                     # print('>>> q2 match found: line={} jpat={}'.format(line,jpat))
                     pass
                 else:
+                    print(pat, line)
                     deathLNO('No legal pattern found!')
             jpat = '"' + jpat + '"'  # quotify
             # print('>>> line={} jpat={}'.format(line,jpat))
@@ -1016,10 +1122,13 @@ def nextLine():
             f = sys.stdin
             Fname = 'STDIN'
         else:
-            try:
-                f = open(Fname, 'r')
-            except:
-                death(Fname + ': error opening file')
+            if Fname == updatedGrammarFileName:
+                f = updatedGrammarFile
+            else:
+                try:
+                    f = open(Fname, 'r')
+                except:
+                    death(Fname + ': error opening file')
         Lno = 0
         # f is the current open file
         for Line in f:
@@ -1036,7 +1145,8 @@ def nextLine():
                 continue
             debug('{:4} [{}] {}'.format(Lno,Fname,Line), level=2)
             yield line
-        f.close()
+        if Fname != updatedGrammarFileName:
+            f.close()
 
 def processFlag(flagSpec):
     global flags
