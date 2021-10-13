@@ -159,11 +159,14 @@ def updateGrammarFile(grammarFile, files_to_include):
         rules = []
         semantics = []
         for f in files_to_include:
-            openF = open(f, "r")
-            includeContent = openF.read().split('\n')
-            tokens += getTokens(includeContent)
-            rules += getRules(includeContent)
-            semantics += getSemantics(includeContent)
+            try:
+                openF = open(f, "r")
+                includeContent = openF.read().split('\n')
+                tokens += getTokens(includeContent)
+                rules += getRules(includeContent)
+                semantics += getSemantics(includeContent)
+            except:
+                death(f + ': error opening file')
         grammarContent = addTokensToGrammar(grammarContent, tokens)
         grammarContent = addRulesToGrammar(grammarContent, rules)
         grammarContent = addSemanticsToGrammar(grammarContent, semantics)
@@ -175,6 +178,8 @@ def updateGrammarFile(grammarFile, files_to_include):
 def getTokens(content):
     toks = []
     for line in content:
+        if len(line.strip()) == 0:
+            continue
         if line[0] == '#':
             continue
         if line.strip() == '%':
