@@ -7,19 +7,12 @@ ADD1OP 'add1'
 ADDOP '\+'
 ASSIGN '='
 COMMA ','
-ELSE 'else'
-IF 'if'
-IN 'in'
-LET 'let'
 LPAREN '\('
 RPAREN '\)'
 SUB1OP 'sub1'
 SUBOP '\-'
-THEN 'then'
 DIVOP '/'
-DOT '\.'
 MULOP '\*'
-PROC 'proc'
 ZEROP 'zero\?'
 
 LIT '\d+'
@@ -29,13 +22,7 @@ VAR '[A-Za-z]\w*'
 <exp>:LitExp     ::= <LIT>
 <exp>:VarExp     ::= <VAR>
 <exp>:PrimAppExp ::= <prim> LPAREN <operands> RPAREN
-<exp>:IfExp      ::= IF <exp>test THEN <exp>thenPart ELSE <exp>elsePart
-<exp>:LetExp     ::= LET <letDecls> IN <exp>
-<exp>:ProcExp    ::= PROC LPAREN <formals> RPAREN <exp> # param list, body
-<exp>:AppExp     ::= DOT <exp> LPAREN <operands> RPAREN # APPly (call) a proc
-<letDecls>       **= <VAR> ASSIGN <exp>
 <operands>       **= <exp> +COMMA
-
 <prim>:AddPrim   ::= ADDOP
 <prim>:SubPrim   ::= SUBOP
 <prim>:Add1Prim  ::= ADD1OP
@@ -43,8 +30,6 @@ VAR '[A-Za-z]\w*'
 <prim>:MulPrim   ::= MULOP
 <prim>:DivPrim   ::= DIVOP
 <prim>:ZeropPrim ::= ZEROP
-
-<formals>        **= <VAR> +COMMA
 %
 
 # class methods that just print out the expression
@@ -53,20 +38,14 @@ VAR '[A-Za-z]\w*'
 
 include Add1Prim-i.java
 include AddPrim-i.java
-include AppExp-i.java
 include DivPrim-i.java
 include Exp-i.java
-include Formals-i.java
-include IfExp-i.java
-include LetDecls-i.java
-include LetExp-i.java
 include LitExp-i.java
 include MulPrim-i.java
 include Operands-i.java
 include Prim-i.java
 include PrimAppExp-i.java
 # include Proc-i.java
-include ProcExp-i.java
 include Program-i.java
 include Sub1Prim-i.java
 include SubPrim-i.java

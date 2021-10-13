@@ -1,9 +1,30 @@
+# letExp and letDecls
+
+IN 'in'
+LET 'let'
+
+%
+<exp>:LetExp     ::= LET <letDecls> IN <exp>
+<letDecls>       **= <VAR> ASSIGN <exp>
+%
 
 LetDecls:import
 %%%
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Iterator;
+%%%
+
+
+LetExp
+%%%
+    // <exp>:LetExp     ::= LET <letDecls> IN <exp>
+
+    public Val eval( Env env ) {
+        Env newEnv = letDecls.makeEnv( env );
+        return exp.eval( newEnv );
+    }
+
 %%%
 
 

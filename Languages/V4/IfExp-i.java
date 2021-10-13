@@ -1,4 +1,12 @@
+#if then elsePart
 
+ELSE 'else'
+IF 'if'
+THEN 'then'
+
+%
+<exp>:IfExp      ::= IF <exp>test THEN <exp>thenPart ELSE <exp>elsePart
+%
 IfExp
 %%%
     @Override
