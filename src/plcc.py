@@ -26,6 +26,7 @@ import shutil
 import pipes
 import tempfile
 import json
+from typing import type_check_only
 
 argv = sys.argv[1:] # skip over the command-line argument
 
@@ -78,6 +79,7 @@ def main():
     plccInit()
     files_to_include = []
     while argv:
+        # include files for the modularization
         if argv[0] == '--i':
             files_to_include = argv[1].split(';')
             argv = argv[2:]
@@ -119,6 +121,9 @@ def main():
     if files_to_include:
         global updatedGrammarFileName
         global updatedGrammarFile
+        # parse included files and add the contents to the grammar file
+        # grammar file and its name is global so the file isnt opened and
+        # parsed again later
         updatedGrammarFile = updateGrammarFile(flag, files_to_include)
         updatedGrammarFileName = flag
 
@@ -150,6 +155,7 @@ def plccInit():
     flags['semantics'] = True     # create semantics routines
     flags['nowrite'] = False      # when True, produce *no* file output
 
+# function to read in all the included fules and add the tokens, rules and semantics
 def updateGrammarFile(grammarFile, files_to_include):
     openFileG = ''
     try:
@@ -174,7 +180,7 @@ def updateGrammarFile(grammarFile, files_to_include):
         death(grammarFile + ': error opening file')
     return grammarContent
         
-
+# function to parse the tokens in a file and return them as a list
 def getTokens(content):
     toks = []
     for line in content:
@@ -187,10 +193,15 @@ def getTokens(content):
         toks += [line.strip()]
     return toks
 
+# add the given list of tokens to the grammar file
+# They added to the start of the grammar 
+# We have to ensure they are always above the VAR token
 def addTokensToGrammar(content, tokens):
     content = tokens + content
     return content
 
+# Extracts the grammar rules from a given file
+# all rules are between %...%
 def getRules(content):
     rules = []
     flag = False
@@ -205,6 +216,8 @@ def getRules(content):
             continue
     return rules
 
+# Adds given list of rules to the given grammar
+# The list is added to end of the rules in the main grammar
 def addRulesToGrammar(content, rules):
     index = 0
     start = 0
@@ -218,6 +231,7 @@ def addRulesToGrammar(content, rules):
     content = content[0:index] + rules + content[index:]
     return content
 
+# Extracts the semantics from the given file
 def getSemantics(content):
     semantics = []
     start = 0
@@ -228,7 +242,10 @@ def getSemantics(content):
             continue
         semantics += [line.strip()]
     return semantics
-            
+          
+# Semantics are added to the given grammar
+# They are appended at the end of the rules between %...%
+# before the semantics in the main grammar  
 def addSemanticsToGrammar(content, semantics):
     index = 0
     start = 0
