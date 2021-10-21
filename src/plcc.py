@@ -188,12 +188,7 @@ def getTokens(content):
     return toks
 
 def addTokensToGrammar(content, tokens):
-    index = 0
-    for i, line in enumerate(content):
-        if 'LIT' in line:
-            index = i+1
-            break
-    content = content[0:index] + tokens + content[index:]
+    content = tokens + content
     return content
 
 def getRules(content):
