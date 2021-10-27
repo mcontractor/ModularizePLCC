@@ -26,7 +26,6 @@ import shutil
 import pipes
 import tempfile
 import json
-from typing import type_check_only
 
 argv = sys.argv[1:] # skip over the command-line argument
 
@@ -245,7 +244,7 @@ def getSemantics(content):
           
 # Semantics are added to the given grammar
 # They are appended at the end of the rules between %...%
-# before the semantics in the main grammar  
+# before the semantics in the main  
 def addSemanticsToGrammar(content, semantics):
     index = 0
     start = 0
