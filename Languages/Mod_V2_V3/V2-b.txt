@@ -1,10 +1,5 @@
 # Language V2: If-a.txt
 # Language V3: If-a.txt, Let-a.txt
-# Language V4: If-a.txt, Let-a.txt, Proc-a.txt, Seq-a.txt
-# Language V5: If-a.txt, Let-a.txt, Proc-a.txt, Seq-a.txt, LetRec-a.txt
-# Language V6: If-a.txt, Let-a.txt, Proc-a.txt, Seq-a.txt, LetRec-a.txt, Define-a.txt
-
-# For V5 and V6, include the Env.jar and UNCOMMENT the import env lines below
 
 skip WHITESPACE '\s+'
 skip COMMENT '%.*'
@@ -31,10 +26,10 @@ VAR '[A-Za-z]\w*'
 %
 
 # UNCOMMENT THESE LINES FOR V5 AND V6
-*:import
-%%%
-import env.*;
-%%%
+#*:import
+#%%%
+#import env.*;
+#%%%
 
 # class methods that just print out the expression
 # (Remember that use of toString is only mandated at the tree's
@@ -52,9 +47,9 @@ include Sub1Prim-i.java
 include SubPrim-i.java
 include VarExp-i.java
 
-# include EnvSource/Binding-i.java
-# include EnvSource/Bindings-i.java
-# include EnvSource/Env-i.java
-# include EnvSource/EnvNode-i.java
-# include EnvSource/Val-i.java
+include EnvSource/Binding-i.java
+include EnvSource/Bindings-i.java
+include EnvSource/Env-i.java
+include EnvSource/EnvNode-i.java
+include EnvSource/Val-i.java
 
