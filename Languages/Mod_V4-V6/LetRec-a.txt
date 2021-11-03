@@ -1,6 +1,6 @@
 # LetRecExp and letrecDecls
 # needs exp, VAR and IN to be defined
-#   - include V2-b.txt
+#   - include V4-b.txt
 #   - include Let-a.txt
 
 LETREC 'letrec'

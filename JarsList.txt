@@ -1,7 +1,7 @@
 Env Jars List
 
 1) Env.jar     -> V4, V5, V6
-2) EnvSer.jar  -> SET
+2) EnvSet.jar  -> SET
 3) EnvRef.jar  -> REF
 4) EnvObj.jar  -> OBJ (Jim's version)
 5) EnvObj2.jar -> OBJ (Tim's version)

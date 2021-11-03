@@ -1,6 +1,6 @@
 # seqExps
 # needs exp to be defined
-#   - include V2-b.txt
+#   - include V4-b.txt
 
 LBRACE '\{'
 RBRACE '\}'

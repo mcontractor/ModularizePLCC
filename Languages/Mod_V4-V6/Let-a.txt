@@ -1,6 +1,6 @@
 # LetExp and LetDecls
 # needs exp and VAR to be predefined
-#   - include V2-b.txt
+#   - include V4-b.txt
 
 LET 'let'
 IN 'in'

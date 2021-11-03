@@ -1,8 +1,8 @@
 # Language V4: If-a.txt, Let-a.txt, Proc-a.txt, Seq-a.txt, ZeroP-a.txt
 # Language V5: If-a.txt, Let-a.txt, Proc-a.txt, Seq-a.txt, ZeroP-a.txt, LetRec-a.txt
 # Language V6: If-a.txt, Let-a.txt, Proc-a.txt, Seq-a.txt, ZeroP-a.txt, LetRec-a.txt, Define-a.txt
+# Language SET: If-a.txt, Proc-a.txt, Seq-a.txt, ZeroP-a.txt, Set-a.txt
 
-# For V5 and V6, include the Env.jar and UNCOMMENT the import env lines below
 
 skip WHITESPACE '\s+'
 skip COMMENT '%.*'

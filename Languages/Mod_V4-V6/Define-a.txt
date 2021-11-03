@@ -1,6 +1,6 @@
 # top level define
 # needs program, exp, VAR and ASSIGN to be defined
-#   - include V2-b.txt
+#   - include V4-b.txt
 
 DEFINE 'define'
 
