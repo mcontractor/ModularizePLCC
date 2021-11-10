@@ -1,0 +1,116 @@
+# extra prims, 
+#    - less than
+#    - less than or equal
+#    -  greater than
+#    - greater than or equal
+#    - equal
+#    - not equal
+# needs prim to be defined
+#   - include V4-b.txt  
+
+
+LTP '<\?'
+LEP '<=\?'
+GTP '>\?'
+GEP '>=\?'
+NEP '<>\?'
+EQP '=\?'
+
+%
+<prim>:LTPrim    ::= LTP
+<prim>:LEPrim    ::= LEP
+<prim>:GTPrim    ::= GTP
+<prim>:GEPrim    ::= GEP
+<prim>:NEPrim    ::= NEP
+<prim>:EQPrim    ::= EQP
+%
+
+LTPrim
+%%%
+    public String toString() {
+        return "<?";
+    }
+
+    public Val apply(Val [] va) {
+        if (va.length != 2)
+            throw new PLCCException("two arguments expected");
+        int i0 = va[0].intVal();
+        int i1 = va[1].intVal();
+        return new IntVal(i0 < i1 ? 1 : 0);
+    }
+%%%
+
+LEPrim
+%%%
+    public String toString() {
+        return "<=?";
+    }
+
+    public Val apply(Val [] va) {
+        if (va.length != 2)
+            throw new PLCCException("two arguments expected");
+        int i0 = va[0].intVal();
+        int i1 = va[1].intVal();
+        return new IntVal(i0 <= i1 ? 1 : 0);
+    }
+%%%
+
+GTPrim
+%%%
+    public String toString() {
+        return ">?";
+    }
+
+    public Val apply(Val [] va) {
+        if (va.length != 2)
+            throw new PLCCException("two arguments expected");
+        int i0 = va[0].intVal();
+        int i1 = va[1].intVal();
+        return new IntVal(i0 > i1 ? 1 : 0);
+    }
+%%%
+
+GEPrim
+%%%
+    public String toString() {
+        return ">=?";
+    }
+
+    public Val apply(Val [] va) {
+        if (va.length != 2)
+            throw new PLCCException("two arguments expected");
+        int i0 = va[0].intVal();
+        int i1 = va[1].intVal();
+        return new IntVal(i0 >= i1 ? 1 : 0);
+    }
+%%%
+
+NEPrim
+%%%
+    public String toString() {
+        return "<>?";
+    }
+
+    public Val apply(Val [] va) {
+        if (va.length != 2)
+            throw new PLCCException("two arguments expected");
+        int i0 = va[0].intVal();
+        int i1 = va[1].intVal();
+        return new IntVal(i0 != i1 ? 1 : 0);
+    }
+%%%
+
+EQPrim
+%%%
+    public String toString() {
+        return "=?";
+    }
+
+    public Val apply(Val [] va) {
+        if (va.length != 2)
+            throw new PLCCException("two arguments expected");
+        int i0 = va[0].intVal();
+        int i1 = va[1].intVal();
+        return new IntVal(i0 == i1 ? 1 : 0);
+    }
+%%%

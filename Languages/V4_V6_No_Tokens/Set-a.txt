@@ -1,0 +1,146 @@
+# setExp, LetDecls, LetRecDecls, Define
+# needs program, exp, VAR and ASSIGN to be defined
+#   - include V4-b.txt
+
+LET 'let'
+IN 'in'
+LETREC 'letrec'
+DEFINE 'define'
+SET 'set'
+
+%
+<program>:Define ::= DEFINE <VAR> ASSIGN <exp>
+<exp>:LetExp     ::= LET <letDecls> IN <exp>
+<exp>:LetrecExp  ::= LETREC <letrecDecls> IN <exp>
+<exp>:SetExp     ::= SET <VAR> ASSIGN <exp>
+<letDecls>       **= <VAR> ASSIGN <exp>
+<letrecDecls>    **= <VAR> ASSIGN <exp>
+%
+
+SetExp
+%%%
+
+    public Val eval( Env env ) {
+        Val val = exp.eval( env );
+        Ref ref = env.applyEnvRef( var.str );
+        return ref.setRef( val );
+    }
+
+    @Override
+    public String toString() {
+        return var.str + '=' + exp;
+    }
+
+%%%
+
+LetExp
+%%%
+    public Val eval( Env env ) {
+        Env newEnv = letDecls.makeEnv( env );
+        return exp.eval( newEnv );
+    }
+
+%%%
+
+LetDecls:import
+%%%
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Iterator;
+%%%
+
+
+LetDecls
+%%%
+    public Env makeEnv( Env oldEnv ) {
+        assert varList.size() == expList.size(): "AST is messed up";
+
+        // For each var-exp pair, make a new Binding
+        // out of the corresponding token "lexeme" and expr evaluation.
+        
+        List< Binding > bindings = new LinkedList<>();
+        Iterator< Token > varIter = varList.iterator();
+        Iterator< Exp > expIter = expList.iterator();
+        while ( varIter.hasNext() ) {
+            Binding binding = new Binding(
+                varIter.next().str,
+                new ValRef( expIter.next().eval( oldEnv ) )
+                );
+            bindings.add( binding );
+        }
+
+        // Make an environment out of the Bindings.
+        return oldEnv.extendEnv( new Bindings( bindings ) );
+    }
+
+
+%%%
+
+LetrecExp
+%%%
+
+    public Val eval( Env env ) {
+        Env newEnv = letrecDecls.makeEnv( env );
+        return exp.eval( newEnv );
+    }
+
+%%%
+
+
+
+LetrecDecls:import
+%%%
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Iterator;
+%%%
+
+
+LetrecDecls
+%%%
+
+    // <letDecls>       **= <VAR> ASSIGN <exp>
+
+    public Env makeEnv( Env oldEnv ) {
+        assert varList.size() == expList.size(): "AST is messed up";
+
+        // Create an empty environment
+        
+        Env newEnv = oldEnv.extendEnv( new Bindings() ); // ! will go away
+
+        // For each var-proc pair, make a new Binding
+        // out of the corresponding token "lexeme" and expr evaluation.
+        
+        List< Binding > bindings = new LinkedList<>();
+        Iterator< Token > varIter = varList.iterator();
+        Iterator< Exp > expIter = expList.iterator();
+        while ( varIter.hasNext() ) {
+            String varName = varIter.next().str;
+            Val procVal = expIter.next().eval( newEnv ); // !
+            // ProcVal procVal = (ProcVal)expIter.next().eval( newEnv ); // !
+            Binding binding = new Binding( varName, new ValRef( procVal ) );
+            bindings.add( binding );
+        }
+
+        // Change the environment to add the Bindings.
+        newEnv.replaceBindings( new Bindings( bindings ) ); // !
+        return newEnv;
+    }
+
+
+%%%
+
+
+Define
+%%%
+    @Override
+    public String toString() {
+        Val val = exp.eval( Program.initEnv );
+        Program.initEnv.addFirst( new Binding( var.str, new ValRef( val ) ) );
+        return var.str + " set to " + val;
+    }
+
+%%%
+
+
+
