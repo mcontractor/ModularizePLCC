@@ -41,6 +41,10 @@ AppExp
     }
 %%%
 
+ProcExp:import
+%%%
+import java.util.*;
+%%%
 
 ProcExp
 %%%
@@ -49,7 +53,11 @@ ProcExp
      * Remember, this is NOT calling the procedure!
      */
     public Val eval( Env env ) {
-        return new ProcVal( formals, exp, env );
+        List<String> formalParams = new LinkedList<>();
+        for (Token tok: formals.varList) {
+            formalParams.add(tok.str);
+        }
+        return new ProcVal( formalParams, exp, env );
         // return proc.makeClosure( env );
     }
 
@@ -60,20 +68,9 @@ ProcExp
     }
 %%%
 
-
-Formals:class
-%%%
-implements IFormals
-%%%
-
 Formals
 %%%
     // The real work is handled directly in the Proc class.
-
-    public List<Token> getVarList() {
-        return varList;
-    }
-
     public String toString() {
         String formals = "(";
         String sep = "";
