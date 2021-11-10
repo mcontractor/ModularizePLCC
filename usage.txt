@@ -25,6 +25,9 @@ scan -j [jar file location]
 Testing Commands 
 V4:  plccmk -c -j "../../../Jars/Env.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Let-a.txt" V4-b.txt
 V5:  plccmk -c -j "../../../Jars/Env.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Let-a.txt;LetRec-a.txt" V4-b.txt
-V6:  plccmk -c -j "../../../Jars/Env.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Let-a.txt;LetRec-a.txt;Define-a.txt" V4-b.txt
+V6:  plccmk -c -j "../../../Jars/Env.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Let-a.txt;LetRec-a.txt;Define-a.txt;ExtraPrims-a.txt" V4-b.txt
+V6 WITHOUT TOKENS:  plccmk -c -j "../../../Jars/Env.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Let-a.txt;LetRec-a.txt;Define-a.txt;ExtraPrims-a.txt" V4-b.txt
 SET: plccmk -c -j "../../../Jars/EnvSet.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Set-a.txt" V4-b.txt
+SET WITHOUT TOKENS: plccmk -c -j "../../../Jars/EnvSetNoTok.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Set-a.txt;ExtraPrims-a.txt" V4-b.txt
 REF: plccmk -c -j "../../../Jars/EnvRef.jar" --i "If-a.txt;Seq-a.txt;ZeroP-a.txt;Set-a.txt;Ref-a.txt" V4-b.txt
+REF WITHOUT TOKENS: plccmk -c -j "../../../Jars/EnvRefNoTok.jar" --i "If-a.txt;Seq-a.txt;ZeroP-a.txt;Set-a.txt;Ref-a.txt;ExtraPrims-a.txt" V4-b.txt
