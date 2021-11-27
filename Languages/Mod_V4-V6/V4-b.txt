@@ -32,7 +32,6 @@ VAR '[A-Za-z]\w*'
 <prim>:Sub1Prim  ::= SUB1OP
 %
 
-# UNCOMMENT THESE LINES FOR V5 AND V6
 *:import
 %%%
 import env.*;
