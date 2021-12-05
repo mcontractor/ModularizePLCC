@@ -22,7 +22,9 @@ The jar file location must be relative to the CURRENT directory
 scan -j [jar file location]
 
 
-Testing Commands 
+Testing Commands
+V2:  plccmk -c --i "If-a.txt" V2-b.txt
+V3:  plccmk -c --i "If-a.txt;Let-a.txt" V3-b.txt 
 V4:  plccmk -c -j "../../../Jars/Env.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Let-a.txt" V4-b.txt
 V5:  plccmk -c -j "../../../Jars/Env.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Let-a.txt;LetRec-a.txt" V4-b.txt
 V6:  plccmk -c -j "../../../Jars/Env.jar" --i "If-a.txt;Proc-a.txt;Seq-a.txt;ZeroP-a.txt;Let-a.txt;LetRec-a.txt;Define-a.txt;ExtraPrims-a.txt" V4-b.txt
