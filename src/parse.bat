@@ -5,4 +5,4 @@ IF NOT EXIST Java\Parse.class (
     EXIT /B 1
 )
 
-java -cp EnvSource/Env.jar:./Java Parse %*
+java -cp ./Java Parse %*
