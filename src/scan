@@ -17,4 +17,10 @@ then
     shift
 fi
 
-java -cp ${jar}:./Java Scan
+if [ -n "$jar" ]
+then
+       (java -cp ${jar}:./Java Scan)
+else
+        (java -cp ./Java Scan)
+fi
+

@@ -17,4 +17,10 @@ then
     shift
 fi
 
-java -cp ${jar}:./Java Parse $*
+if [ -n "$jar" ]
+then
+       (java -cp ${jar}:./Java Parse $*)
+else
+        (java -cp ./Java Parse $*)
+fi
+

@@ -16,4 +16,11 @@ then
     shift
     shift
 fi
-java -cp ${jar}:./Java Rep -t
+
+if [ -n "$jar" ]
+then
+       (java -cp ${jar}:./Java Rep -t)
+else
+        (java -cp ./Java Rep -t)
+fi
+
