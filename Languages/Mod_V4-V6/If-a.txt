@@ -7,7 +7,7 @@ IF 'if'
 THEN 'then'
 
 %
-<exp>:IfExp      ::= IF <exp>test THEN <exp>thenPart ELSE <exp>elsePart
+<exp>:IfExp ::= IF <exp>test THEN <exp>thenPart ELSE <exp>elsePart
 %
 IfExp
 %%%
